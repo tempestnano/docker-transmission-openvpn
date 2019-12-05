@@ -12,7 +12,7 @@ AMD64_IMAGE="$VIRTUAL_IMAGE-amd64"
 ARM64_IMAGE="$VIRTUAL_IMAGE-arm64v8"
 ARM32_IMAGE="$VIRTUAL_IMAGE-arm32v7"
 LATEST="$VIRTUAL_IMAGE:latest"
-
+echo $LATEST
 echo "checking if ${AMD64_IMAGE} Manifest exists"
 if ! ./docker-cli manifest inspect ${AMD64_IMAGE}; then AMD64_IMAGE='' ; fi
 echo "checking if ${ARM32_IMAGE} Manifest exists"
