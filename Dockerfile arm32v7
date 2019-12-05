@@ -35,7 +35,7 @@ RUN echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/ap
     https://www.privateinternetaccess.com/openvpn/openvpn-strong.zip \
     https://www.privateinternetaccess.com/openvpn/openvpn-tcp.zip \
     https://www.privateinternetaccess.com/openvpn/openvpn-strong-tcp.zip \
-    && mkdir -p /openvpn/target && \
+    && mkdir -p /openvpn/target \
     && unzip -q openvpn.zip -d /openvpn/pia \
     && unzip -q openvpn-strong.zip -d /openvpn/pia/strong \
     && unzip -q openvpn-tcp.zip -d /openvpn/pia/tcp-normal \
