@@ -6,7 +6,7 @@ VOLUME /config
 ARG DOCKERIZE_ARCH=amd64
 ENV DOCKERIZE_VERSION=v0.6.0
 RUN echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
-    && apk --no-cache add bash dumb-init ip6tables ufw@testing openvpn shadow transmission-daemon transmission-cli curl jq dockerize\
+    && apk --no-cache add bash dumb-init ip6tables ufw@testing openvpn shadow transmission-daemon transmission-cli curl jq dockerize unzip\
     && mkdir -p /opt/transmission-ui \
     && echo "Install Combustion" \
     && wget -qO- https://github.com/Secretmapper/combustion/archive/master.tar.gz | tar xz -C /opt/transmission-ui \
@@ -23,7 +23,17 @@ RUN echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/ap
     && rm -rf /tmp/* /var/tmp/* \
     && groupmod -g 1000 users \
     && useradd -u 911 -U -d /config -s /bin/false abc \
-    && usermod -G users abc
+    && usermod -G users abc \
+    && wget -q https://www.privateinternetaccess.com/openvpn/openvpn.zip \
+    https://www.privateinternetaccess.com/openvpn/openvpn-strong.zip \
+    https://www.privateinternetaccess.com/openvpn/openvpn-tcp.zip \
+    https://www.privateinternetaccess.com/openvpn/openvpn-strong-tcp.zip \
+    && mkdir -p /openvpn/target && \
+    && unzip -q openvpn.zip -d /openvpn/pia \
+    && unzip -q openvpn-strong.zip -d /openvpn/pia/strong \
+    && unzip -q openvpn-tcp.zip -d /openvpn/pia/tcp-normal \
+    && unzip -q openvpn-strong-tcp.zip -d /openvpn/pia/tcp-strong \
+    && apk del -q --progress --purge unzip
 
 ADD openvpn/ /etc/openvpn/
 ADD transmission/ /etc/transmission/
