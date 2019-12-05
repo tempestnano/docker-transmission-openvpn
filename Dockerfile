@@ -23,9 +23,11 @@ RUN echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/ap
     && ln -s /usr/share/transmission/web/javascript /opt/transmission-ui/transmission-web-control \
     && ln -s /usr/share/transmission/web/index.html /opt/transmission-ui/transmission-web-control/index.original.html \
     && rm -rf /tmp/* /var/tmp/* \
+    && echo "User setup" \
     && groupmod -g 1000 users \
     && useradd -u 911 -U -d /config -s /bin/false abc \
     && usermod -G users abc \
+    && echo "Grab PIA configs" \
     && wget -q https://www.privateinternetaccess.com/openvpn/openvpn.zip \
     https://www.privateinternetaccess.com/openvpn/openvpn-strong.zip \
     https://www.privateinternetaccess.com/openvpn/openvpn-tcp.zip \
@@ -35,6 +37,7 @@ RUN echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/ap
     && unzip -q openvpn-strong.zip -d /openvpn/pia/strong \
     && unzip -q openvpn-tcp.zip -d /openvpn/pia/tcp-normal \
     && unzip -q openvpn-strong-tcp.zip -d /openvpn/pia/tcp-strong \
+    && echo "Purging" \
     && apk del -q --progress --purge unzip
 
 ADD openvpn/ /etc/openvpn/
