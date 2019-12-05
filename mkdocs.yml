@@ -1,6 +1,6 @@
 site_name: docker-transmission-openvpn
-site_url: http://haugene.github.io/docker-transmission-openvpn/
-repo_url: https://github.com/haugene/docker-transmission-openvpn/
+site_url: http://jstrader.github.io/docker-transmission-openvpn/
+repo_url: https://github.com/jstrader/docker-transmission-openvpn/
 theme:
   name: 'material'
 markdown_extensions:
