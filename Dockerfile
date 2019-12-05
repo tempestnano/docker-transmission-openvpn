@@ -38,7 +38,9 @@ RUN echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/ap
     && unzip -q openvpn-tcp.zip -d /openvpn/pia/tcp-normal \
     && unzip -q openvpn-strong-tcp.zip -d /openvpn/pia/tcp-strong \
     && echo "Purging" \
-    && apk del --purge unzip
+    && apk update \
+    && apk del --purge unzip \
+    && rm -rf /var/cache/apk/*
 
 ADD openvpn/ /etc/openvpn/
 ADD transmission/ /etc/transmission/
