@@ -42,11 +42,11 @@ RUN echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/ap
     https://www.privateinternetaccess.com/openvpn/openvpn-strong.zip \
     https://www.privateinternetaccess.com/openvpn/openvpn-tcp.zip \
     https://www.privateinternetaccess.com/openvpn/openvpn-strong-tcp.zip \
-    && mkdir -p /openvpn/target \
-    && unzip -q openvpn.zip -d /openvpn/pia \
-    && unzip -q openvpn-strong.zip -d /openvpn/pia/strong \
-    && unzip -q openvpn-tcp.zip -d /openvpn/pia/tcp-normal \
-    && unzip -q openvpn-strong-tcp.zip -d /openvpn/pia/tcp-strong \
+    && unzip -q openvpn.zip -d /etc/openvpn/pia \
+    && unzip -q openvpn-strong.zip -d /etc/openvpn/pia/strong \
+    && unzip -q openvpn-tcp.zip -d /etc/openvpn/pia/tcp-normal \
+    && unzip -q openvpn-strong-tcp.zip -d /etc/openvpn/pia/tcp-strong \
+    && rm *.zip \
     && echo "Purging" \
     && apk update \
     && apk del --purge unzip \
