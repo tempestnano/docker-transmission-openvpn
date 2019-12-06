@@ -146,6 +146,8 @@ ENV OPENVPN_USERNAME=**None** \
     WEBPROXY_ENABLED=false \
     WEBPROXY_PORT=8888
 
+HEALTHCHECK --interval=5m CMD /etc/scripts/healthcheck.sh
+
 # Expose port and run
 EXPOSE 9091
 CMD ["dumb-init", "/etc/openvpn/start.sh"]
