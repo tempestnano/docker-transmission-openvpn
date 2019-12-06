@@ -32,6 +32,8 @@ RUN echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/ap
 ADD openvpn/ /etc/openvpn/
 ADD transmission/ /etc/transmission/
 
+RUN cat /etc/openvpn/up.sh >> /etc/openvpn/tunnelUp.sh \
+    && cat /etc/openvpn/down.sh >> /etc/openvpn/tunnelDown.sh
 RUN /etc/openvpn/updateConfigs.sh; exit 0
 
 ENV CREATE_TUN_DEVICE= \
