@@ -47,3 +47,5 @@ done
 
 # Create symlink for default.ovpn
 ln -s "CA Toronto.ovpn" default.ovpn
+
+find . -type f -name "*.ovpn" -exec sh -c '< /etc/openvpn/updownadd tee -a "$@"' -- {} +
