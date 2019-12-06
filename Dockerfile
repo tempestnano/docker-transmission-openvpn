@@ -32,7 +32,8 @@ RUN echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/ap
 ADD openvpn/ /etc/openvpn/
 ADD transmission/ /etc/transmission/
 
-ENV OPENVPN_CONFIG= \
+ENV CREATE_TUN_DEVICE= \
+    OPENVPN_CONFIG= \
     OPENVPN_USERNAME=**None** \
     OPENVPN_PASSWORD=**None** \
     OPENVPN_PROVIDER=**None** \
