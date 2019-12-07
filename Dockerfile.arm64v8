@@ -41,6 +41,8 @@ RUN echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/ap
     
 ADD openvpn/ /etc/openvpn/
 ADD transmission/ /etc/transmission/
+ADD tinyproxy /opt/tinyproxy/
+ADD scripts /etc/scripts/
 
 RUN cat /etc/openvpn/up.sh >> /etc/openvpn/tunnelUp.sh \
     && cat /etc/openvpn/down.sh >> /etc/openvpn/tunnelDown.sh
