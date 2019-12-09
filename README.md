@@ -21,6 +21,6 @@ $ docker run --cap-add=NET_ADMIN -d \
               --log-driver json-file \
               --log-opt max-size=10m \
               -p 9091:9091 \
-              tempestnano/transmission-openvpn
+              jstrader/transmission-openvpn
 ```
 
