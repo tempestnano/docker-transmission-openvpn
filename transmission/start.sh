@@ -60,8 +60,14 @@ if [[ "true" = "$DROP_DEFAULT_ROUTE" ]]; then
   ip r del default || exit 1
 fi
 
+if [[ "true" = "$DOCKER_LOG" ]]; then
+  LOGFILE=/dev/stdout
+else
+  LOGFILE=${TRANSMISSION_HOME}/transmission.log
+fi
+
 echo "STARTING TRANSMISSION"
-exec su --preserve-environment ${RUN_AS} -s /bin/bash -c "/usr/bin/transmission-daemon -g ${TRANSMISSION_HOME} --logfile ${TRANSMISSION_HOME}/transmission.log" &
+exec su --preserve-environment ${RUN_AS} -s /bin/bash -c "/usr/bin/transmission-daemon -g ${TRANSMISSION_HOME} --logfile $LOGFILE" &
 
 if [[ "${OPENVPN_PROVIDER^^}" = "PIA" ]]
 then
@@ -71,6 +77,10 @@ elif [[ "${OPENVPN_PROVIDER^^}" = "PERFECTPRIVACY" ]]
 then
     echo "CONFIGURING PORT FORWARDING"
     exec /etc/transmission/updatePPPort.sh ${TRANSMISSION_BIND_ADDRESS_IPV4} &
+elif [[ "${OPENVPN_PROVIDER^^}" = "PRIVATEVPN" ]]
+then
+    echo "CONFIGURING PORT FORWARDING"
+    exec /etc/transmission/updatePrivateVPNPort.sh &
 else
     echo "NO PORT UPDATER FOR THIS PROVIDER"
 fi

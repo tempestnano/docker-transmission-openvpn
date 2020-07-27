@@ -6,7 +6,7 @@ VOLUME /config
 ARG DOCKERIZE_ARCH=amd64
 ENV DOCKERIZE_VERSION=v0.6.1
 RUN echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
-    && apk --no-cache add bash dumb-init ip6tables ufw@testing openvpn shadow transmission-daemon transmission-cli curl jq unzip\
+    && apk --no-cache add bash dumb-init ip6tables ufw@testing openvpn shadow transmission-daemon transmission-cli tinyproxy curl jq unzip\
     && mkdir -p /opt/transmission-ui \
     && echo "Install dockerize $DOCKERIZE_VERSION ($DOCKERIZE_ARCH)" \
     && wget -qO- https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-$DOCKERIZE_ARCH-$DOCKERIZE_VERSION.tar.gz | tar xz -C /usr/bin \
@@ -110,7 +110,7 @@ ENV CREATE_TUN_DEVICE= \
     TRANSMISSION_TRASH_ORIGINAL_TORRENT_FILES=false \
     TRANSMISSION_UMASK=2 \
     TRANSMISSION_UPLOAD_SLOTS_PER_TORRENT=14 \
-    TRANSMISSION_UTP_ENABLED=true \
+    TRANSMISSION_UTP_ENABLED=false \
     TRANSMISSION_WATCH_DIR=/data/watch \
     TRANSMISSION_WATCH_DIR_ENABLED=true \
     TRANSMISSION_HOME=/data/transmission-home \
@@ -126,10 +126,15 @@ ENV CREATE_TUN_DEVICE= \
     TRANSMISSION_WEB_HOME= \
     DROP_DEFAULT_ROUTE= \
     WEBPROXY_ENABLED=false \
-    WEBPROXY_PORT=8888
+    WEBPROXY_PORT=8888 \
+    WEBPROXY_USERNAME= \
+    WEBPROXY_PASSWORD= \
+    HEALTH_CHECK_HOST=google.com \
+    DOCKER_LOG=false
 
 HEALTHCHECK --interval=5m CMD /etc/scripts/healthcheck.sh
 
 # Expose port and run
 EXPOSE 9091
+EXPOSE 8888
 CMD ["dumb-init", "/etc/openvpn/start.sh"]
